@@ -14,4 +14,11 @@ class MovieMockRemoteDataSource {
             Movie(title = "title4", poster = "poster4", id = "4")
         )
     }
+
+    fun getMovie(movieId: String): Movie? {
+        return getMovies().firstOrNull { movie -> //renombro el it por movie
+            //it es un objeto movie del listado
+            movie.id == movieId
+        }
+    }
 }
