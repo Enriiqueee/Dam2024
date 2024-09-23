@@ -17,11 +17,11 @@ class MovieActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         val viewModel = moviewFactory.buildViewModel()
         val movies = viewModel.viewCreated()
-        Log.d("@dev", movies.toString())
+        Log.d("@dev", movies.toString()) //Los visualiza
+        viewModel.itemSelected(movies.first().id) //Simular un click sobre un item
     }
 
     override fun onStart(){
