@@ -49,17 +49,40 @@ class MovieActivity : AppCompatActivity() {
                 Log.d("@dev", "Pelicula seleccionada: $it.title")
             }
 
-
-            findViewById<TextView>(R.id.movie_id_4).text = movies[3].id
-            findViewById<TextView>(R.id.movie_title_4).text = movies[3].title
-            findViewById<LinearLayout>(R.id.layout_4).setOnClickListener {
-                val movie4: Movie? = viewModel.itemSelected(movies[3].id)
-                movie4?.let {
-                    Log.d("@dev", "Pelicula seleccionada: $it.title")
-                }
-            }
-
-
         }
+        findViewById<TextView>(R.id.movie_id_4).text = movies[3].id
+        findViewById<TextView>(R.id.movie_title_4).text = movies[3].title
+        findViewById<LinearLayout>(R.id.layout_4).setOnClickListener {
+            val movie4: Movie? = viewModel.itemSelected(movies[3].id)
+            movie4?.let {
+                Log.d("@dev", "Pelicula seleccionada: $it.title")
+            }
+        }
+
     }
+        override fun onStart() {
+            super.onStart()
+            Log.d("@dev", "onStart")
+        }
+
+        override fun onResume() {
+            super.onResume()
+            Log.d("@dev", "onResume")
+        }
+
+        override fun onPause() {
+            super.onPause()
+            Log.d("@dev", "onPause")
+        }
+
+        override fun onStop() {
+            super.onStop()
+            Log.d("@dev", "onStop")
+        }
+
+        override fun onDestroy() {
+            super.onDestroy()
+            Log.d("@dev", "onDestroy")
+        }
+
 }
