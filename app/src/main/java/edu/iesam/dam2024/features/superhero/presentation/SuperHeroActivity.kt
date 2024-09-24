@@ -31,7 +31,7 @@ class SuperHeroActivity : AppCompatActivity() {
         findViewById<LinearLayout>(R.id.layout_1).setOnClickListener {
             val hero1: SuperHero? = viewModel.itemSelected(hero[0].id)
             hero1?.let {
-                Log.d("@dev", "SuperHeroe seleccionada: $it.title")
+                Log.d("@dev", "SuperHeroe seleccionada: $it.name")
             }
         }
     }
