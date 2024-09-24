@@ -41,6 +41,7 @@ class MovieActivity : AppCompatActivity() {
         }
 
 
+MovieFindById
         findViewById<TextView>(R.id.movie_id_3).text = movies[2].id
         findViewById<TextView>(R.id.movie_title_3).text = movies[2].title
         findViewById<LinearLayout>(R.id.layout_3).setOnClickListener {
@@ -48,6 +49,13 @@ class MovieActivity : AppCompatActivity() {
             movie3?.let {
                 Log.d("@dev", "Pelicula seleccionada: $it.title")
             }
+
+        // Mostramos la pelicula encontrado
+        if (movies != null) {
+            Log.d("@dev", "Movie found: $movies")
+        }else{
+            println("No hay con ese id")
+ main
         }
 
 
