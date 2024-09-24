@@ -5,6 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.superhero.presentation.MoviesActivity">
+    tools:context=".features.movies.presentation.MovieActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
