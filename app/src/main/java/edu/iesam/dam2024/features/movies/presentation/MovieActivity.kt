@@ -23,7 +23,7 @@ class MoviesActivity : AppCompatActivity() {
         val movieId = "1" // probamos con este id
         val movies = viewModel.itemSelected(movieId)
 
-        // Mostramos el superhéroe encontrado
+        // Mostramos la pelicula encontrado
         if (movies != null) {
             Log.d("@dev", "Movie found: $movies")
         }else{
