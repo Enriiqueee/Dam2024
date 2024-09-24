@@ -46,9 +46,15 @@ class SuperheroMockRemoteDataSource {
     }
 
     fun getSuperheroById(superheroId: Int): Superhero?{
+MovieFindById
+        return getSuperhero().firstOrNull(){ hero ->
+            //it es un objeto Movie del listado
+            hero.id == superheroId
+
         return getSuperhero().firstOrNull(){
             //it es un objeto Movie del listado
             it.id == superheroId
+main
         }
     }
 
