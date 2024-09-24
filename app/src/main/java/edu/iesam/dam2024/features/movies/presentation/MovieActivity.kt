@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import edu.iesam.dam2024.R
 import edu.iesam.dam2024.features.movies.domain.Movie
 
-class MoviesActivity : AppCompatActivity() {
+class MovieActivity : AppCompatActivity() {
 
     private val moviewFactory: MovieFactory = MovieFactory()
     private val viewModel = moviewFactory.buildViewModel()
