@@ -1,9 +1,9 @@
 package edu.iesam.dam2024.features.superhero.presentation
 
-import edu.iesam.dam2024.features.superhero.SuperheroDataRepository
+import edu.iesam.dam2024.features.superhero.data.SuperheroDataRepository
 import edu.iesam.dam2024.features.superhero.domain.GetSuperHeroIdUseCase
 import edu.iesam.dam2024.features.superhero.domain.GetSuperheroUseCase
-import edu.iesam.dam2024.features.superhero.remote.SuperheroMockRemoteDataSource
+import edu.iesam.dam2024.features.superhero.data.remote.SuperheroMockRemoteDataSource
 
 class SuperheroFactory {
 

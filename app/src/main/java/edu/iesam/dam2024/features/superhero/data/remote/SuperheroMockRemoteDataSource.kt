@@ -1,4 +1,4 @@
-package edu.iesam.dam2024.features.superhero.remote
+package edu.iesam.dam2024.features.superhero.data.remote
 
 import edu.iesam.dam2024.features.superhero.domain.*
 
@@ -46,9 +46,9 @@ class SuperheroMockRemoteDataSource {
     }
 
     fun getSuperheroById(superheroId: Int): Superhero?{
-        return getSuperhero().firstOrNull(){
+        return getSuperhero().firstOrNull(){ hero ->
             //it es un objeto Movie del listado
-            it.id == superheroId
+            hero.id == superheroId
         }
     }
 
