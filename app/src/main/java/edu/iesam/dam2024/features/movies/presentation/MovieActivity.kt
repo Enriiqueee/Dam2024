@@ -41,7 +41,6 @@ class MovieActivity : AppCompatActivity() {
         }
 
 
-MovieFindById
         findViewById<TextView>(R.id.movie_id_3).text = movies[2].id
         findViewById<TextView>(R.id.movie_title_3).text = movies[2].title
         findViewById<LinearLayout>(R.id.layout_3).setOnClickListener {
@@ -50,24 +49,17 @@ MovieFindById
                 Log.d("@dev", "Pelicula seleccionada: $it.title")
             }
 
-        // Mostramos la pelicula encontrado
-        if (movies != null) {
-            Log.d("@dev", "Movie found: $movies")
-        }else{
-            println("No hay con ese id")
- main
-        }
 
-
-        findViewById<TextView>(R.id.movie_id_4).text = movies[3].id
-        findViewById<TextView>(R.id.movie_title_4).text = movies[3].title
-        findViewById<LinearLayout>(R.id.layout_4).setOnClickListener {
-            val movie4: Movie? = viewModel.itemSelected(movies[3].id)
-            movie4?.let {
-                Log.d("@dev", "Pelicula seleccionada: $it.title")
+            findViewById<TextView>(R.id.movie_id_4).text = movies[3].id
+            findViewById<TextView>(R.id.movie_title_4).text = movies[3].title
+            findViewById<LinearLayout>(R.id.layout_4).setOnClickListener {
+                val movie4: Movie? = viewModel.itemSelected(movies[3].id)
+                movie4?.let {
+                    Log.d("@dev", "Pelicula seleccionada: $it.title")
+                }
             }
+
+
         }
-
-
     }
 }
