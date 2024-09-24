@@ -2,14 +2,11 @@ package edu.iesam.dam2024.features.superhero.presentation
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import edu.iesam.dam2024.R
 
 class SuperHeroActivity : AppCompatActivity() {
-    private val superherowFactory: SuperheroFactory = SuperheroFactory()
+    private val superherowFactory: SuperHeroFactory = SuperHeroFactory()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

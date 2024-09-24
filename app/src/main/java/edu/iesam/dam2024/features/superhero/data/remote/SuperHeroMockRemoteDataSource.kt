@@ -2,10 +2,9 @@ package edu.iesam.dam2024.features.superhero.data.remote
 
 import edu.iesam.dam2024.features.superhero.domain.*
 
-class SuperheroMockRemoteDataSource {
-    fun getSuperhero(): List<Superhero> {
-        return listOf(
-            Superhero(
+class SuperHeroMockRemoteDataSource {
+    private val superHero = listOf (
+            SuperHero(
                 id = 1,
                 name = "Superman",
                 powerstats = Powerstats(
@@ -43,17 +42,16 @@ class SuperheroMockRemoteDataSource {
                 )
             )
         )
+
+    fun getSuperHero(): List<SuperHero> {
+        return superHero
     }
 
-    fun getSuperheroById(superheroId: Int): Superhero? {
-        return getSuperhero().firstOrNull() { hero ->
-            //it es un objeto Movie del listado
-            hero.id == superheroId
-
-            return getSuperhero().firstOrNull() {
-                //it es un objeto Movie del listado
-                it.id == superheroId
-            }
+    fun getSuperHeroById(superheroId: Int): SuperHero? {
+        return superHero.firstOrNull { superhero ->
+            superhero.id == superheroId
         }
     }
+
+
 }
