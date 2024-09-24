@@ -1,4 +1,4 @@
-package edu.iesam.dam2024.features.superhero.remote
+package edu.iesam.dam2024.features.superhero.data.remote
 
 import edu.iesam.dam2024.features.superhero.domain.*
 
