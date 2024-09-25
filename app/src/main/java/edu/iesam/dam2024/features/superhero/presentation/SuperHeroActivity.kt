@@ -26,12 +26,13 @@ class SuperHeroActivity : AppCompatActivity() {
     }
 
     private fun bindData(hero: List<SuperHero>) {
-        findViewById<TextView>(R.id.movie_id_1).text = hero[0].id.toString()
-        findViewById<TextView>(R.id.movie_title_1).text = hero[0].name
-        findViewById<LinearLayout>(R.id.layout_1).setOnClickListener {
+        findViewById<TextView>(R.id.superhero_id_1).text = hero[0].id.toString()
+        findViewById<TextView>(R.id.superhero_name_1).text = hero[0].name
+        findViewById<LinearLayout>(R.id.hero_1).setOnClickListener {
             val hero1: SuperHero? = viewModel.itemSelected(hero[0].id)
             hero1?.let {
-                Log.d("@dev", "SuperHeroe seleccionada: $it.name")
+                Log.d("@dev", "SuperHero Encontrado: ID = ${it.id}, Nombre = ${it.name}," +
+                        "${it.powerstats},  ${it.biography}, ${it.appearance}")
             }
         }
     }
