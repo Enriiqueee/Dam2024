@@ -9,10 +9,10 @@ class SuperHeroDataRepository(
     SuperHeroRepository {
 
     override fun getSuperhero(): List<SuperHero> {
-        return mockRemoteDataSource.getSuperHero()
+        return mockRemoteDataSource.getSuperHeroes()
     }
 
-    override fun getSuperheroById(superheroId: Int): SuperHero?{
-        return mockRemoteDataSource.getSuperHeroById(superheroId)
+    override fun getSuperheroById(superheroId: String): SuperHero?{
+        return mockRemoteDataSource.getSuperHero(superheroId)
     }
 }

@@ -1,9 +1,8 @@
 package edu.iesam.dam2024.features.superhero.domain
 
-class GetSuperHeroUseCase(private val superheroRepository: SuperHeroRepository) {
+class GetSuperHeroesUseCase(private val superHeroRepository: SuperHeroRepository) {
 
     operator fun invoke(): List<SuperHero> {
-        return superheroRepository.getSuperhero()
+        return superHeroRepository.getSuperhero()
     }
-
 }
