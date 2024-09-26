@@ -7,15 +7,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import edu.iesam.dam2024.R
 import edu.iesam.dam2024.features.movies.domain.Movie
+import edu.iesam.dam2024.features.superhero.data.local.SuperHeroXmlLocalDataSource
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
 class SuperHeroActivity : AppCompatActivity() {
     private val superheroFactory: SuperHeroFactory = SuperHeroFactory()
-
     // Inicializa el ViewModel con el caso de uso para obtener todos los superhéroes
     private val viewModel = superheroFactory.buildViewModel()
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_superhero)
@@ -23,6 +21,18 @@ class SuperHeroActivity : AppCompatActivity() {
         val hero = viewModel.viewCreated()
         bindData(hero)
         viewModel.itemSelected(hero.first().id)
+    }
+
+
+
+    private fun testXml(){
+        val xmlDataSource = SuperHeroXmlLocalDataSource(this)
+        val superHero = viewModel.itemSelected("1")
+        superHero?.let {
+            xmlDataSource.save(superHero)
+        }
+        val superheroSaved = xmlDataSource.findSuperHero()
+        Log.d("@dev", superheroSaved.toString())
     }
 
     private fun bindData(hero: List<SuperHero>) {
