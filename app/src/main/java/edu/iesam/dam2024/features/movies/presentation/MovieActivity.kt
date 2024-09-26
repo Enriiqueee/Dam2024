@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import edu.iesam.dam2024.R
+import edu.iesam.dam2024.features.movies.data.local.MovieXmlLocalDataSource
 import edu.iesam.dam2024.features.movies.domain.Movie
 
 class MovieActivity : AppCompatActivity() {
@@ -20,6 +21,8 @@ class MovieActivity : AppCompatActivity() {
         bindData(movies)
         viewModel.itemSelected(movies.first().id) //Simular un click sobre un item
     }
+
+
 
     private fun bindData(movies: List<Movie>) {
         findViewById<TextView>(R.id.movie_id_1).text = movies[0].id
@@ -58,31 +61,43 @@ class MovieActivity : AppCompatActivity() {
                 Log.d("@dev", "Pelicula seleccionada: $it.title")
             }
         }
-
     }
-        override fun onStart() {
-            super.onStart()
-            Log.d("@dev", "onStart")
+
+    private fun testXml() {
+        val xmlDataSource = MovieXmlLocalDataSource(this)
+        val movie = viewModel.itemSelected("1")
+        //Permitir el nulo
+        movie?.let {
+            xmlDataSource.save(it)
         }
 
-        override fun onResume() {
-            super.onResume()
-            Log.d("@dev", "onResume")
-        }
+        val movieSaved = xmlDataSource.findMovie();
+        Log.d("@dev", movieSaved.toString())
+    }
 
-        override fun onPause() {
-            super.onPause()
-            Log.d("@dev", "onPause")
-        }
+    override fun onStart() {
+        super.onStart()
+        Log.d("@dev", "onStart")
+    }
 
-        override fun onStop() {
-            super.onStop()
-            Log.d("@dev", "onStop")
-        }
+    override fun onResume() {
+        super.onResume()
+        Log.d("@dev", "onResume")
+    }
 
-        override fun onDestroy() {
-            super.onDestroy()
-            Log.d("@dev", "onDestroy")
-        }
+    override fun onPause() {
+        super.onPause()
+        Log.d("@dev", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("@dev", "onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("@dev", "onDestroy")
+    }
 
 }
