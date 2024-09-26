@@ -21,6 +21,7 @@ class SuperHeroActivity : AppCompatActivity() {
         val hero = viewModel.viewCreated()
         bindData(hero)
         viewModel.itemSelected(hero.first().id)
+        testXml()
     }
 
 
