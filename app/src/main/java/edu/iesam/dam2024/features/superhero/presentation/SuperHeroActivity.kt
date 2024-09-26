@@ -27,9 +27,9 @@ class SuperHeroActivity : AppCompatActivity() {
 
     private fun testXml(){
         val xmlDataSource = SuperHeroXmlLocalDataSource(this)
-        val superHero = viewModel.itemSelected("1")
-        superHero?.let {
-            xmlDataSource.save(superHero)
+        val superHero1 = viewModel.itemSelected("1")
+        superHero1?.let {
+            xmlDataSource.save(superHero1)
         }
         val superheroSaved = xmlDataSource.findSuperHero()
         Log.d("@dev", superheroSaved.toString())
