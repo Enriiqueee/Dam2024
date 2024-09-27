@@ -20,10 +20,12 @@ class MovieActivity : AppCompatActivity() {
         bindData(movies)
         val movie = viewModel.itemSelected(movies.first().id)
         testXml()
-        movie?.let {
-            // Log.d("@dev", movie.toString())
-        }
 
+        /*
+        movie?.let {
+             Log.d("@dev", movie.toString())
+        }
+        */
 
     }
 
@@ -35,6 +37,8 @@ class MovieActivity : AppCompatActivity() {
         }
         val movieSaved = xmlDataSource.findMovie()
         Log.d("@dev", movieSaved.toString())
+
+        xmlDataSource.delete()
     }
 
     private fun bindData(movies: List<Movie>) {
