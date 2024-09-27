@@ -1,15 +1,23 @@
 package edu.iesam.dam2024.features.superhero.data
 
+import edu.iesam.dam2024.features.superhero.data.local.SuperHeroXmlLocalDataSource
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 import edu.iesam.dam2024.features.superhero.domain.SuperHeroRepository
 import edu.iesam.dam2024.features.superhero.data.remote.SuperHeroMockRemoteDataSource
 
-class SuperHeroDataRepository(
-    private val mockRemoteDataSource: SuperHeroMockRemoteDataSource):
+class SuperHeroDataRepository(private val local: SuperHeroXmlLocalDataSource,
+                              private val mockRemoteDataSource: SuperHeroMockRemoteDataSource):
     SuperHeroRepository {
 
     override fun getSuperhero(): List<SuperHero> {
-        return mockRemoteDataSource.getSuperHeroes()
+        val superheroFromLocal = local.findAll()
+        if(superheroFromLocal.isEmpty()){
+            val superheroesFromRemote = mockRemoteDataSource.getSuperHeroes()
+            local.saveAll(superheroesFromRemote)
+            return superheroesFromRemote
+        }else{
+            return superheroFromLocal
+        }
     }
 
     override fun getSuperheroById(superheroId: String): SuperHero?{

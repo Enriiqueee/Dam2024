@@ -55,7 +55,7 @@ class MovieActivity : AppCompatActivity() {
         findViewById<LinearLayout>(R.id.layout_1).setOnClickListener {
             val movie1: Movie? = viewModel.itemSelected(movies[0].id)
             movie1?.let {
-                Log.d("@dev", "Pelicula seleccionada: ${it.title}")
+                Log.d("@dev", "Pelicula seleccionada: $it.title")
             }
         }
 
@@ -64,7 +64,7 @@ class MovieActivity : AppCompatActivity() {
         findViewById<LinearLayout>(R.id.layout_2).setOnClickListener {
             val movie2: Movie? = viewModel.itemSelected(movies[1].id)
             movie2?.let {
-                Log.d("@dev", "Pelicula seleccionada: ${it.title}")
+                Log.d("@dev", "Pelicula seleccionada: $it.title")
             }
         }
 
@@ -73,7 +73,7 @@ class MovieActivity : AppCompatActivity() {
         findViewById<LinearLayout>(R.id.layout_3).setOnClickListener {
             val movie3: Movie? = viewModel.itemSelected(movies[2].id)
             movie3?.let {
-                Log.d("@dev", "Pelicula seleccionada: ${it.title}")
+                Log.d("@dev", "Pelicula seleccionada: $it.title")
             }
         }
         findViewById<TextView>(R.id.movie_id_4).text = movies[3].id
@@ -81,7 +81,7 @@ class MovieActivity : AppCompatActivity() {
         findViewById<LinearLayout>(R.id.layout_4).setOnClickListener {
             val movie4: Movie? = viewModel.itemSelected(movies[3].id)
             movie4?.let {
-                Log.d("@dev", "Pelicula seleccionada: ${it.title}")
+                Log.d("@dev", "Pelicula seleccionada: $it.title")
             }
         }
     }
