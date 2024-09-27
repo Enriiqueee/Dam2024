@@ -9,17 +9,21 @@ class SuperHeroXmlLocalDataSource(private val context: Context) {
     )
 
     fun save(superhero: SuperHero){
-        val editor = sharedPref.edit()
-        editor.putString("id", superhero.id)
-        editor.putString("name", superhero.name)
-        editor.putString("url", superhero.urlImage)
-        editor.apply()
+        sharedPref.edit().apply(){
+            putString("id", superhero.id)
+            putString("name", superhero.name)
+            putString("url", superhero.urlImage)
+        }
     }
 
     fun findSuperHero(): SuperHero{
-        val id = sharedPref.getString("id", "")
-        val name = sharedPref.getString("name", "")
-        val url = sharedPref.getString("url", "")
-        return SuperHero(id!!, name!!, url!!)
+       return SuperHero(
+           sharedPref.getString("id", "")!!,
+           sharedPref.getString("name", "")!!,
+            sharedPref.getString("url", "")!!)
+    }
+
+    fun delete(){
+        sharedPref.edit().clear().apply()
     }
 }

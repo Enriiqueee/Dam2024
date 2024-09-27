@@ -34,6 +34,8 @@ class SuperHeroActivity : AppCompatActivity() {
         }
         val superheroSaved = xmlDataSource.findSuperHero()
         Log.d("@dev", superheroSaved.toString())
+
+        xmlDataSource.delete()
     }
 
     private fun bindData(hero: List<SuperHero>) {

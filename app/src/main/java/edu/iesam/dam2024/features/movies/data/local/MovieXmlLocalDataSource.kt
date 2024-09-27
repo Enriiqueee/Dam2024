@@ -47,7 +47,7 @@ class MovieXmlLocalDataSource(private val context: Context) {
     }
 
     fun delete(){
-        sharedPref.edit().clear()
+        sharedPref.edit().clear().apply()
     }
 
 }
