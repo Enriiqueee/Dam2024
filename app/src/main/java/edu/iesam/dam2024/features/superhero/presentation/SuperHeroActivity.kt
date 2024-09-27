@@ -18,6 +18,10 @@ class SuperHeroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_superhero)
 
+        //Esto se pone ya que se crean siendo lateinit que es que se inicializan despues
+        superheroFactory = SuperHeroFactory(this)
+        viewModel = superheroFactory.buildViewModel()
+
         val heroes = viewModel.viewCreated()
         bindData(heroes)
         val hero = viewModel.itemSelected(heroes.first().id)
