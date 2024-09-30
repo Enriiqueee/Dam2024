@@ -24,20 +24,15 @@ class MovieActivity : AppCompatActivity() {
         val movies = viewModel.viewCreated()
         bindData(movies)
         val movie = viewModel.itemSelected(movies.first().id)
-        //testXml()
-        testListXml()
+        //testListXml()
+        testMovie()
     }
 
-    private fun testXml() {
+    private fun testMovie(){
+        viewModel.viewCreated()
         val xmlDataSource = MovieXmlLocalDataSource(this)
-        val movie = viewModel.itemSelected("1")
-        movie?.let {
-            xmlDataSource.save(movie)
-        }
-        val movieSaved = xmlDataSource.findMovie()
-        Log.d("@dev", movieSaved.toString())
-
-        xmlDataSource.delete()
+        val movie = xmlDataSource.findById("1")
+        Log.d("@dev", "$movie")
     }
 
     private fun testListXml(){

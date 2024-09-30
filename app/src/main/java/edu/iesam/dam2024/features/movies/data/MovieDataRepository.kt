@@ -23,7 +23,15 @@ class MovieDataRepository(private val local: MovieXmlLocalDataSource, private va
     }
 
     override fun getMovie(movieId: String): Movie? {
-        return mockRemoteDataSource.getMovie(movieId)
+        val localMovie = local.findById(movieId)
+        if(localMovie == null){
+            mockRemoteDataSource.getMovie(movieId)?.let { movie ->
+                local.save(movie)
+                return movie
+            }
+        }
+
+        return localMovie
     }
 
 }

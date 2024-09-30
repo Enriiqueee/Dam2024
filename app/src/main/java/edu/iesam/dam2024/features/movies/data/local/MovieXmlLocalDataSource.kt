@@ -14,39 +14,9 @@ class MovieXmlLocalDataSource(private val context: Context) {
 
     fun save(movie: Movie) {
 
-        /*
-        Forma Java
-
         val editor = sharedPref.edit()
-        editor.putString("id", movie.id)
-        editor.putString("title", movie.title)
-        editor.putString("poster", movie.poster)
+        editor.putString(movie.id, gson.toJson(movie))
         editor.apply()
-        */
-
-        //Simplificado
-        sharedPref.edit().apply(){
-            putString("id", movie.id)
-            putString("title", movie.title)
-            putString("poster", movie.poster)
-        }
-    }
-
-    fun findMovie(): Movie {
-        /*
-        val id = sharedPref.getString("id", "")
-        val title = sharedPref.getString("title", "")
-        val poster = sharedPref.getString("poster", "")
-        return Movie(id!!, title!!, poster!!)
-         */
-
-        sharedPref.apply {
-            return Movie(
-                getString("id", "")!!,
-                getString("title", "")!!,
-                getString("poster", "")!!)
-
-        }
     }
 
     fun delete(){
@@ -75,6 +45,10 @@ class MovieXmlLocalDataSource(private val context: Context) {
             movies.add(movie)
         }
         return movies
+    }
+
+    fun deleteById(movieId: String){
+        sharedPref.edit().remove(movieId).apply()
     }
 
 }
