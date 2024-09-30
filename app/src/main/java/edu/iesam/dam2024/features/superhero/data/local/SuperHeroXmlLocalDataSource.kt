@@ -12,21 +12,11 @@ class SuperHeroXmlLocalDataSource(private val context: Context) {
     private val gson = Gson()
 
     fun save(superhero: SuperHero){
-        sharedPref.edit().apply(){
-            putString("id", superhero.id)
-            putString("name", superhero.name)
-            putString("url", superhero.urlImage)
-        }
+        val editor = sharedPref.edit()
+        editor.putString(superhero.id, gson.toJson(superhero))
+        editor.apply()
     }
 
-    fun findSuperHero(): SuperHero{
-        sharedPref.apply {
-            return SuperHero(
-                getString("id", "")!!,
-                getString("name", "")!!,
-                getString("url", "")!!)
-        }
-    }
 
     fun delete(){
         sharedPref.edit().clear().apply()
@@ -40,6 +30,12 @@ class SuperHeroXmlLocalDataSource(private val context: Context) {
         editor.apply()
     }
 
+    fun findById(superheroId : String): SuperHero?{
+        return sharedPref.getString(superheroId, null)?.let { superhero ->
+            gson.fromJson(superhero, SuperHero::class.java)
+        }
+    }
+
     fun findAll(): List<SuperHero>{
         val superheroes = ArrayList<SuperHero>()
         val mapSuperheroes = sharedPref.all
@@ -48,5 +44,9 @@ class SuperHeroXmlLocalDataSource(private val context: Context) {
             superheroes.add(superhero)
         }
         return superheroes
+    }
+
+    fun deleteById(superheroId: String){
+        sharedPref.edit().remove(superheroId).apply()
     }
 }

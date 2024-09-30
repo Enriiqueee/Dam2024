@@ -31,7 +31,7 @@ class MovieActivity : AppCompatActivity() {
     private fun testMovie(){
         viewModel.viewCreated()
         val xmlDataSource = MovieXmlLocalDataSource(this)
-        val movie = xmlDataSource.findById("1")
+        val movie = xmlDataSource.findById("3")
         Log.d("@dev", "$movie")
     }
 

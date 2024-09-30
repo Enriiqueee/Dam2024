@@ -25,8 +25,8 @@ class SuperHeroActivity : AppCompatActivity() {
         val heroes = viewModel.viewCreated()
         bindData(heroes)
         val hero = viewModel.itemSelected(heroes.first().id)
-        //testXml()
-        testListXml()
+        //testListXml()
+        testSuperHero()
     }
 
 
@@ -41,16 +41,11 @@ class SuperHeroActivity : AppCompatActivity() {
         }
     }
 
-    private fun testXml(){
+    private fun testSuperHero(){
+        viewModel.viewCreated()
         val xmlDataSource = SuperHeroXmlLocalDataSource(this)
-        val superHero1 = viewModel.itemSelected("1")
-        superHero1?.let {
-            xmlDataSource.save(superHero1)
-        }
-        val superheroSaved = xmlDataSource.findSuperHero()
-        Log.d("@dev", superheroSaved.toString())
-
-        xmlDataSource.delete()
+        val superhero = xmlDataSource.findById("1")
+        Log.d("@dev", "$superhero")
     }
 
     private fun testListXml(){
