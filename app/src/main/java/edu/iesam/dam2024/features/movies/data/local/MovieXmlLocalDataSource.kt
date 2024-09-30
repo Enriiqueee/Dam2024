@@ -61,6 +61,12 @@ class MovieXmlLocalDataSource(private val context: Context) {
         editor.apply()
     }
 
+    fun findById(moviesId: String): Movie?{
+        return sharedPref.getString(moviesId, null)?.let{ movie ->
+            gson.fromJson(movie, Movie::class.java)
+        }
+    }
+
     fun findAll(): List<Movie>{
         val movies = ArrayList<Movie>()
         val mapMovies = sharedPref.all // aqui tambien se podria poner lo del as Map<String, String>
