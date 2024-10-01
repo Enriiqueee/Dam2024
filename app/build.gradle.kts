@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.gson.serializer)
+    implementation(libs.glide)
 
     //Librerias para testing
     testImplementation(libs.junit)
