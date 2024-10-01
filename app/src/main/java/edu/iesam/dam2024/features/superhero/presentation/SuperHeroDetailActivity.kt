@@ -3,6 +3,7 @@ package edu.iesam.dam2024.features.superhero.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -20,6 +21,7 @@ class SuperHeroDetailActivity : AppCompatActivity() {
         superheroFactory = SuperHeroFactory(this)
         viewModel = superheroFactory.buildSuperHeroDetailViewModel()
 
+
         getSuperHero()?.let{ superheroId ->
             viewModel.viewCreated(superheroId)?.let { hero ->
                 bindData(hero)
@@ -28,15 +30,17 @@ class SuperHeroDetailActivity : AppCompatActivity() {
     }
 
     private fun bindData(superhero: SuperHero) {
-        val superHeroView = findViewById<ImageView>(R.id.imageUrl)
+        val imageView = findViewById<ImageView>(R.id.imageUrl)
+        Log.d("@dev", "URL de la imagen: ${superhero.urlImage}")
         Glide
-            .with(superHeroView)
+            .with(this)
             .load(superhero.urlImage)
-            .into(superHeroView)
+            .into(imageView)
     }
 
     private fun getSuperHero(): String?{
         return intent.getStringExtra(KEY_SUPERHERO_ID)
+
     }
 
     companion object{
