@@ -4,17 +4,11 @@ import androidx.lifecycle.ViewModel
 import edu.iesam.dam2024.features.superhero.domain.*
 
 class SuperHeroViewModel(
-    private val getSuperheroUseCase: GetSuperHeroesUseCase,
-    private val getSuperHeroIdUseCase: GetSuperHeroIdUseCase)
+    private val getSuperheroUseCase: GetSuperHeroesUseCase)
     :ViewModel()
 {
 
     fun viewCreated(): List<SuperHero>{
         return getSuperheroUseCase.invoke()
     }
-
-    fun itemSelected(superheroId: String): SuperHero?{
-        return getSuperHeroIdUseCase.invoke(superheroId)
-    }
-
 }

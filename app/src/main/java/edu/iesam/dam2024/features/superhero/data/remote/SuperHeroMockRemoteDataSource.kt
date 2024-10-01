@@ -8,8 +8,8 @@ import edu.iesam.dam2024.features.superhero.domain.*
         private val superHeros = listOf(
             SuperHero(
                 "1",
-                "A-Bomb",
-                "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/sm/1-a-bomb.jpg"
+                "Batman",
+                "https://i.ebayimg.com/images/g/Ty0AAOSwMWJiErcL/s-l400.png"
             ),
             SuperHero(
                 "2",
