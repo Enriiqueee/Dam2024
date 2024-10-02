@@ -11,14 +11,14 @@ import edu.iesam.dam2024.R
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
 class SuperHeroDetailActivity : AppCompatActivity() {
-    private lateinit var superheroFactory: SuperHeroFactory
+    private lateinit var superheroFactory: SuperHeroesFactory
     private lateinit var viewModel : SuperHeroDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_superhero_detail)
 
-        superheroFactory = SuperHeroFactory(this)
+        superheroFactory = SuperHeroesFactory(this)
         viewModel = superheroFactory.buildSuperHeroDetailViewModel()
 
 

@@ -8,16 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import edu.iesam.dam2024.R
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
-class SuperHeroActivity : AppCompatActivity() {
-    private lateinit var superheroFactory: SuperHeroFactory
-    private lateinit var viewModel : SuperHeroViewModel
+class SuperHeroesActivity : AppCompatActivity() {
+    private lateinit var superheroFactory: SuperHeroesFactory
+    private lateinit var viewModel : SuperHeroesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_superhero)
 
         //Esto se pone ya que se crean siendo lateinit que es que se inicializan despues
-        superheroFactory = SuperHeroFactory(this)
+        superheroFactory = SuperHeroesFactory(this)
         viewModel = superheroFactory.buildViewModel()
 
         val heroes = viewModel.viewCreated()

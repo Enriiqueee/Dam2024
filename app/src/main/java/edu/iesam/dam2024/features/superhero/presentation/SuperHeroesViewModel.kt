@@ -3,7 +3,7 @@ package edu.iesam.dam2024.features.superhero.presentation
 import androidx.lifecycle.ViewModel
 import edu.iesam.dam2024.features.superhero.domain.*
 
-class SuperHeroViewModel(
+class SuperHeroesViewModel(
     private val getSuperheroUseCase: GetSuperHeroesUseCase)
     :ViewModel()
 {
