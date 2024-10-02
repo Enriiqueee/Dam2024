@@ -6,8 +6,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import edu.iesam.dam2024.R
-import edu.iesam.dam2024.features.movies.domain.Movie
-import edu.iesam.dam2024.features.superhero.data.local.SuperHeroXmlLocalDataSource
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
 class SuperHeroActivity : AppCompatActivity() {
@@ -24,37 +22,19 @@ class SuperHeroActivity : AppCompatActivity() {
 
         val heroes = viewModel.viewCreated()
         bindData(heroes)
-        val hero = viewModel.itemSelected(heroes.first().id)
-        //testListXml()
-        testSuperHero()
+
     }
 
+    private fun navigateToSuperHeroDetail(superheroId: String) {
+        startActivity(SuperHeroDetailActivity.getIntent(this, superheroId))
+    }
 
     private fun bindData(hero: List<SuperHero>) {
         findViewById<TextView>(R.id.superhero_id_1).text = hero[0].id
         findViewById<TextView>(R.id.superhero_name_1).text = hero[0].name
         findViewById<LinearLayout>(R.id.hero_1).setOnClickListener {
-            val hero1: SuperHero? = viewModel.itemSelected(hero[0].id)
-            hero1?.let {
-                Log.d("@dev", "Superhero seleccionada: $it.title")
-            }
+           navigateToSuperHeroDetail(hero[0].id)
         }
-    }
-
-    private fun testSuperHero(){
-        viewModel.viewCreated()
-        val xmlDataSource = SuperHeroXmlLocalDataSource(this)
-        val superhero = xmlDataSource.findById("1")
-        Log.d("@dev", "$superhero")
-    }
-
-    private fun testListXml(){
-        val hero = viewModel.viewCreated()
-        val xmlDataSource = SuperHeroXmlLocalDataSource(this)
-        xmlDataSource.saveAll(hero)
-
-        val heroFromXml = xmlDataSource.findAll()
-        Log.d("@dev", heroFromXml.toString())
     }
 
         override fun onStart() {
