@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/poster"
-        android:layout_width="64dp"
-        android:layout_height="64dp"/>
+        android:layout_width="320dp"
+        android:layout_height="320dp"/>
 
 </LinearLayout>

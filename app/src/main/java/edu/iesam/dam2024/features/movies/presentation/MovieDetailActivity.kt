@@ -31,7 +31,6 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun bindData(movie: Movie) {
         val imageView = findViewById<ImageView>(R.id.poster)
-        //El fallo esta aqui
         imageView.loadUrl(movie.poster)
     }
 
