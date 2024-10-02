@@ -16,7 +16,7 @@ class SuperHeroDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_detail)
+        setContentView(R.layout.activity_superhero_detail)
 
         superheroFactory = SuperHeroFactory(this)
         viewModel = superheroFactory.buildSuperHeroDetailViewModel()
