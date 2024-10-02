@@ -3,12 +3,9 @@ package edu.iesam.dam2024.features.movies.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.bumptech.glide.Glide
 import edu.iesam.dam2024.R
 import edu.iesam.dam2024.app.extensions.loadUrl
 import edu.iesam.dam2024.features.movies.domain.Movie
@@ -16,7 +13,7 @@ import edu.iesam.dam2024.features.movies.domain.Movie
 class MovieDetailActivity : AppCompatActivity() {
 
     private lateinit var movieFactory: MovieFactory
-    private lateinit var viewModel : MovieDetailViewModel
+    private lateinit var viewModel: MovieDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,21 +29,18 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindData(movie: Movie){
+    private fun bindData(movie: Movie) {
         val imageView = findViewById<ImageView>(R.id.poster)
+        //El fallo esta aqui
         imageView.loadUrl(movie.poster)
     }
 
-
-    private fun getMovieId(): String?{
+    private fun getMovieId(): String? {
         return intent.getStringExtra(KEY_MOVIE_ID)
     }
 
-
     companion object {
-        val KEY_MOVIE_ID = "key_movie_id"
-
-
+        const val KEY_MOVIE_ID = "key_movie_id"
 
         fun getIntent(context: Context, movieId: String): Intent {
             val intent = Intent(context, MovieDetailActivity::class.java)
