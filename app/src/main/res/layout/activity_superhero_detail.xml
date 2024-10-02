@@ -9,7 +9,7 @@
 
 
     <ImageView
-        android:id="@+id/imageUrl"
+        android:id="@+id/image_url"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

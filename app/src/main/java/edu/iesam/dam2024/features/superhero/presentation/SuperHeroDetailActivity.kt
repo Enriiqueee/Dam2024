@@ -30,7 +30,7 @@ class SuperHeroDetailActivity : AppCompatActivity() {
     }
 
     private fun bindData(superhero: SuperHero) {
-        val imageView = findViewById<ImageView>(R.id.imageUrl)
+        val imageView = findViewById<ImageView>(R.id.image_url)
         Log.d("@dev", "URL de la imagen: ${superhero.urlImage}")
         Glide
             .with(this)
