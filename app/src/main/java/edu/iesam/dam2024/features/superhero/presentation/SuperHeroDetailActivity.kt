@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import edu.iesam.dam2024.R
@@ -33,6 +34,8 @@ class SuperHeroDetailActivity : AppCompatActivity() {
     private fun bindData(superhero: SuperHero) {
         val imageView = findViewById<ImageView>(R.id.image_url)
         imageView.loadUrl(superhero.urlImage)
+        findViewById<TextView>(R.id.text1).text = superhero.name
+
     }
 
     private fun getSuperHero(): String?{
