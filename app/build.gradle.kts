@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "edu.iesam.dam2024"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "edu.iesam.dam2024"
