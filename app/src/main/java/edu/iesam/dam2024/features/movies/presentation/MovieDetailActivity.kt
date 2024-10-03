@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import edu.iesam.dam2024.R
 import edu.iesam.dam2024.app.extensions.loadUrl
@@ -32,6 +33,8 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun bindData(movie: Movie) {
         val imageView = findViewById<ImageView>(R.id.poster)
         imageView.loadUrl(movie.poster)
+        findViewById<TextView>(R.id.text1).text = movie.title
+
     }
 
     private fun getMovieId(): String? {
