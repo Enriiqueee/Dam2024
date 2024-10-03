@@ -18,14 +18,15 @@
         <TextView
             android:id="@+id/movie_id_1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
+            android:layout_height="wrap_content"
+            android:textSize="40dp"
+            />
 
         <TextView
             android:id="@+id/movie_title_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="40dp"
             android:layout_marginLeft="20dp" />
 
     </LinearLayout>
