@@ -1,1 +1,2 @@
-<h1>Ejercicio de Clase Chema en el que estamos haciendo Movie y SuperHero</h1>
+<h1>Ejercicio SuperHeroe y Movie</h1>
+<h2>Explicaciones de la clase para luego hacerlas en el proyecto grupal</h2>
