@@ -5,7 +5,10 @@ import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import edu.iesam.dam2024.R
+import edu.iesam.dam2024.app.domain.ErrorApp
+import edu.iesam.dam2024.features.movies.presentation.MoviesViewModel
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
 class SuperHeroesActivity : AppCompatActivity() {
@@ -15,21 +18,38 @@ class SuperHeroesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_superhero)
-
-        //Esto se pone ya que se crean siendo lateinit que es que se inicializan despues
         superheroFactory = SuperHeroesFactory(this)
         viewModel = superheroFactory.buildViewModel()
-
-        val heroes = viewModel.viewCreated()
-        bindData(heroes)
+        setupObserver()
+        viewModel.viewCreated()
 
     }
 
-    private fun navigateToSuperHeroDetail(superheroId: String) {
+
+    private fun setupObserver() {
+        val heroObserver = Observer<SuperHeroesViewModel.UiState> { uiState ->
+            uiState.superHeroes?.let {
+                bindData(it)
+            }
+            uiState.errorApp?.let {
+                //pinto el error
+            }
+            if (uiState.isLoading) {
+                //muestro el cargando...
+                Log.d("@dev", "Cargando...")
+            } else {
+                //oculto el cargando...
+                Log.d("@dev"," Cargado ...")
+            }
+        }
+        viewModel.uiState.observe(this, heroObserver)
+    }
+
+    fun navigateToSuperHeroDetail(superheroId: String) {
         startActivity(SuperHeroDetailActivity.getIntent(this, superheroId))
     }
 
-    private fun bindData(hero: List<SuperHero>) {
+    fun bindData(hero: List<SuperHero>) {
         findViewById<TextView>(R.id.superhero_id_1).text = hero[0].id
         findViewById<TextView>(R.id.superhero_name_1).text = hero[0].name
         findViewById<LinearLayout>(R.id.hero_1).setOnClickListener {
@@ -37,30 +57,13 @@ class SuperHeroesActivity : AppCompatActivity() {
         }
     }
 
-        override fun onStart() {
-            super.onStart()
-            Log.d("@dev", "onStart")
+    private fun showError(error: ErrorApp){
+        when(error){
+            ErrorApp.DataErrorApp -> TODO()
+            ErrorApp.InternetErrorApp -> TODO()
+            ErrorApp.ServerErrorApp -> TODO()
+            ErrorApp.UnknowErrorApp -> TODO()
         }
-
-        override fun onResume() {
-            super.onResume()
-            Log.d("@dev", "onResume")
-        }
-
-        override fun onPause() {
-            super.onPause()
-            Log.d("@dev", "onPause")
-        }
-
-        override fun onStop() {
-            super.onStop()
-            Log.d("@dev", "onStop")
-        }
-
-        override fun onDestroy() {
-            super.onDestroy()
-            Log.d("@dev", "onDestroy")
-        }
-
+    }
 
 }
