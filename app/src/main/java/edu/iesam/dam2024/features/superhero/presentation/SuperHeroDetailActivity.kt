@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import edu.iesam.dam2024.R
 import edu.iesam.dam2024.app.extensions.loadUrl
@@ -22,12 +23,9 @@ class SuperHeroDetailActivity : AppCompatActivity() {
 
         superheroFactory = SuperHeroesFactory(this)
         viewModel = superheroFactory.buildSuperHeroDetailViewModel()
-
-
+        setupObserver()
         getSuperHero()?.let{ superheroId ->
-            viewModel.viewCreated(superheroId)?.let { hero ->
-                bindData(hero)
-            }
+            viewModel.viewCreated(superheroId)
         }
     }
 
@@ -36,6 +34,25 @@ class SuperHeroDetailActivity : AppCompatActivity() {
         imageView.loadUrl(superhero.urlImage)
         findViewById<TextView>(R.id.text1).text = superhero.name
 
+    }
+
+    private fun setupObserver() {
+        val heroObserver = Observer<SuperHeroDetailViewModel.UiState> { uiState ->
+            uiState.superHero?.let {
+                bindData(it)
+            }
+            uiState.errorApp?.let {
+                //pinto el error
+            }
+            if (uiState.isLoading) {
+                //muestro el cargando...
+                Log.d("@dev", "Cargando...")
+            } else {
+                //oculto el cargando...
+                Log.d("@dev"," Cargado ...")
+            }
+        }
+        viewModel.uiState.observe(this, heroObserver)
     }
 
     private fun getSuperHero(): String?{
