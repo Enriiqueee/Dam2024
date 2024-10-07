@@ -27,7 +27,7 @@ class SuperHeroesActivity : AppCompatActivity() {
 
 
     private fun setupObserver() {
-        val heroObserver = Observer<SuperHeroesViewModel.UiState> { uiState ->
+        val superHeroObserver = Observer<SuperHeroesViewModel.UiState> { uiState ->
             uiState.superHeroes?.let {
                 bindData(it)
             }
@@ -42,7 +42,7 @@ class SuperHeroesActivity : AppCompatActivity() {
                 Log.d("@dev"," Cargado ...")
             }
         }
-        viewModel.uiState.observe(this, heroObserver)
+        viewModel.uiState.observe(this, superHeroObserver)
     }
 
     fun navigateToSuperHeroDetail(superheroId: String) {
