@@ -23,7 +23,6 @@
         android:id="@+id/superhero_id_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ID"
         android:textColor="#000000"
         android:textSize="16sp"
         />
@@ -33,7 +32,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:text="Nombre"
         android:textColor="#000000"
         android:textSize="18sp"
          />
