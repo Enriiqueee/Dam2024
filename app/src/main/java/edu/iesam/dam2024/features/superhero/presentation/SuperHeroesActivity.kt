@@ -55,6 +55,18 @@ class SuperHeroesActivity : AppCompatActivity() {
         findViewById<LinearLayout>(R.id.hero_1).setOnClickListener {
            navigateToSuperHeroDetail(hero[0].id)
         }
+
+        findViewById<TextView>(R.id.superhero_id_2).text = hero[1].id
+        findViewById<TextView>(R.id.superhero_name_2).text = hero[1].name
+        findViewById<LinearLayout>(R.id.hero_2).setOnClickListener {
+            navigateToSuperHeroDetail(hero[1].id)
+        }
+
+        findViewById<TextView>(R.id.superhero_id_3).text = hero[2].id
+        findViewById<TextView>(R.id.superhero_name_3).text = hero[2].name
+        findViewById<LinearLayout>(R.id.hero_3).setOnClickListener {
+            navigateToSuperHeroDetail(hero[2].id)
+        }
     }
 
     private fun showError(error: ErrorApp){
