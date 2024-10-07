@@ -20,10 +20,9 @@ class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-        setupObserver()
         movieFactory = MovieFactory(this)
         viewModel = movieFactory.buildMovieDetailViewModel()
-
+        setupObserver()
         getMovieId()?.let { movieId ->
             viewModel.viewCreated(movieId)
         }
