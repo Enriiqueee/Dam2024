@@ -43,9 +43,11 @@ class MoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupObserver()
+        movieFactory = MovieFactory(requireContext())
         viewModel =  movieFactory.buildViewModel()
+        setupObserver()
         viewModel.viewCreated()
+
     }
 
     private fun setupObserver() {
@@ -71,25 +73,28 @@ class MoviesFragment : Fragment() {
         binding.movieId1.text = movies[0].id
         binding.movieTitle1.text = movies[0].title
         binding.movieTitle1.setOnClickListener {
-            navigateToMovieDetail("1")
+            findNavController().navigate(R.id.movie_detail_fragment)
+
         }
 
         binding.movieId2.text = movies[1].id
         binding.movieTitle2.text = movies[1].title
         binding.movieTitle2.setOnClickListener {
-            navigateToMovieDetail("2")
+            findNavController().navigate(R.id.movie_detail_fragment)
+
         }
 
         binding.movieId3.text = movies[2].id
         binding.movieTitle3.text = movies[2].title
         binding.movieTitle3.setOnClickListener {
-            findNavController().navigate(R.)
+            findNavController().navigate(R.id.movie_detail_fragment)
         }
 
         binding.movieId4.text = movies[3].id
         binding.movieTitle4.text = movies[3].title
         binding.movieTitle4.setOnClickListener {
-            navigateToMovieDetail("4")
+            findNavController().navigate(R.id.movie_detail_fragment)
+
         }
     }
 
@@ -103,7 +108,7 @@ class MoviesFragment : Fragment() {
     }
 
     fun navigateToMovieDetail(movieId: String) {
-        startActivity(MovieDetailActivity.getIntent(requireContext(), movieId))
+        //startActivity(MovieDetailActivity.getIntent(requireContext(), movieId))
     }
 
     override fun onDestroyView() {
