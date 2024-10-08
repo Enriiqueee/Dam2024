@@ -43,6 +43,7 @@ class SuperHeroDetailFragment: Fragment() {
 
     private fun setupObserver() {
         viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
+            Log.d("SuperHeroDetailFragment", "uiState: $uiState")
             uiState.superHero?.let { bindData(it) }
             uiState.errorApp?.let { showError(it) }
             if (uiState.isLoading) {
