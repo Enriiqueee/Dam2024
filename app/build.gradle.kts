@@ -33,9 +33,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         viewBinding = true
     }
+
 }
 
 dependencies {
@@ -52,6 +54,11 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.coil)
     implementation(libs.viewmodel.scope)
+    implementation(libs.nav.ui)
+    implementation(libs.nav.fragment)
+
+
+
 
     //Librerias para testing
     testImplementation(libs.junit)
