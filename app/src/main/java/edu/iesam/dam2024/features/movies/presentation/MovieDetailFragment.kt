@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import edu.iesam.dam2024.app.domain.ErrorApp
+import edu.iesam.dam2024.app.extensions.loadUrl
 import edu.iesam.dam2024.databinding.FragmentMovieBinding
 import edu.iesam.dam2024.databinding.FragmentMovieDetailBinding
 import edu.iesam.dam2024.features.movies.domain.Movie
@@ -57,7 +58,7 @@ class MovieDetailFragment : Fragment() {
     }
 
     fun bindData(movie: Movie) {
-
+        binding.poster.loadUrl(movie.poster)
     }
 
     private fun showError(error: ErrorApp) {
