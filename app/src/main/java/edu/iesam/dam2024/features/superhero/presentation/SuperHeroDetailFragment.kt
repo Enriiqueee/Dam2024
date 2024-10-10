@@ -7,10 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import edu.iesam.dam2024.R
 import edu.iesam.dam2024.app.domain.ErrorApp
 import edu.iesam.dam2024.app.extensions.loadUrl
 import edu.iesam.dam2024.databinding.FragmentMovieDetailBinding
@@ -20,6 +17,8 @@ class SuperHeroDetailFragment: Fragment() {
 
     private lateinit var superheroFactory: SuperHeroesFactory
     private lateinit var viewModel : SuperHeroDetailViewModel
+
+    // private val superHeroArgs = SuperHeroDetailFragmentArgs by navArgs()
 
     private var _binding: FragmentMovieDetailBinding? = null
     private val binding get() = _binding!!
@@ -56,8 +55,8 @@ class SuperHeroDetailFragment: Fragment() {
         }
     }
 
-    fun bindData(superhero: SuperHero) {
-        binding.poster.loadUrl(superhero.urlImage)
+    fun bindData(superHero: SuperHero) {
+        binding.poster.loadUrl(superHero.urlImage)
     }
 
     private fun showError(error: ErrorApp) {

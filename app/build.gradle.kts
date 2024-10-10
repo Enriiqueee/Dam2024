@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.navigation.safeargs.kotlin)
 }
 
 android {
@@ -56,6 +57,7 @@ dependencies {
     implementation(libs.viewmodel.scope)
     implementation(libs.nav.ui)
     implementation(libs.nav.fragment)
+    api(libs.nav.fragment.ktx)
 
 
 

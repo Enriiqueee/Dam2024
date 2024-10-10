@@ -57,6 +57,7 @@ class MoviesFragment : Fragment() {
             }
             uiState.errorApp?.let {
                 //pinto el error
+                showError(it)
             }
             if (uiState.isLoading) {
                 //muestro el cargando...
