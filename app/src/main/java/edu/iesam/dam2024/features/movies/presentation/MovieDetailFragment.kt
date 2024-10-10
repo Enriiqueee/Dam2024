@@ -9,14 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
+import edu.iesam.dam2024.app.domain.ErrorApp
 import edu.iesam.dam2024.app.extensions.loadUrl
 import edu.iesam.dam2024.databinding.FragmentMovieDetailBinding
 import edu.iesam.dam2024.features.movies.domain.Movie
+import edu.iesam.dam2024.features.superhero.presentation.SuperHeroDetailActivity
 
 class MovieDetailFragment : Fragment() {
 
     private lateinit var movieFactory: MovieFactory
-    private lateinit var viewModel: MovieDetailViewModel
+    private lateinit var viewModel : MovieDetailViewModel
+
+    private val movieArgs: MovieDetailFragmentArgs by navArgs()
 
     private var _binding: FragmentMovieDetailBinding? = null
     private val binding get() = _binding!!
@@ -35,45 +40,47 @@ class MovieDetailFragment : Fragment() {
         movieFactory = MovieFactory(requireContext())
         viewModel = movieFactory.buildMovieDetailViewModel()
         setupObserver()
-        getMovieId()?.let {
-            viewModel.viewCreated(it)
-        }
+        getSuperHeroId()?.let { viewModel.viewCreated(it) }
     }
 
     private fun setupObserver() {
-        val movieObserver = Observer<MovieDetailViewModel.UiState> { uiState ->
-            uiState.movie?.let {
-                bindData(it)
-            }
-            uiState.errorApp?.let {
-                //pinto el error
-            }
+        viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
+            uiState.movie?.let { bindData(it) }
+            uiState.errorApp?.let { showError(it) }
             if (uiState.isLoading) {
-                //muestro el cargando...
                 Log.d("@dev", "Cargando...")
+                // Mostrar progress bar
             } else {
-                //oculto el cargando...
-                Log.d("@dev", " Cargado ...")
+                Log.d("@dev", "Cargado ...")
+                // Ocultar progress bar
             }
         }
-        viewModel.uiState.observe(viewLifecycleOwner, movieObserver)
     }
 
-    private fun getMovieId(): String? {
-        return arguments?.getString(KEY_MOVIE_ID)
-    }
-
-    private fun bindData(movie: Movie) {
+    fun bindData(movie: Movie) {
         binding.poster.loadUrl(movie.poster)
     }
 
-    companion object {
-        val KEY_MOVIE_ID = "key_movie_id"
-
-        fun getIntent(context: Context, movieId: String): Intent {
-            val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra(KEY_MOVIE_ID, movieId)
-            return intent
+    private fun showError(error: ErrorApp) {
+        when (error) {
+            ErrorApp.DataErrorApp -> TODO()
+            ErrorApp.InternetErrorApp -> TODO()
+            ErrorApp.ServerErrorApp -> TODO()
+            ErrorApp.UnknowErrorApp -> TODO()
         }
     }
+
+    private fun getSuperHeroId(): String?{
+        //return movieArgs.movieId
+        return "2"
+    }
+
+
+    companion object{
+        const val KEY_SUPERHERO_ID = "key_superhero_id"
+        fun getIntent(context: Context, superheroId: String) = Intent(context, SuperHeroDetailActivity::class.java).apply {
+            putExtra(KEY_SUPERHERO_ID, superheroId)
+        }
+    }
+
 }

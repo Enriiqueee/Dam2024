@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import edu.iesam.dam2024.app.domain.ErrorApp
 import edu.iesam.dam2024.app.extensions.loadUrl
 import edu.iesam.dam2024.databinding.FragmentMovieDetailBinding
@@ -18,7 +19,7 @@ class SuperHeroDetailFragment: Fragment() {
     private lateinit var superheroFactory: SuperHeroesFactory
     private lateinit var viewModel : SuperHeroDetailViewModel
 
-    // private val superHeroArgs = SuperHeroDetailFragmentArgs by navArgs()
+    private val superHeroArgs: SuperHeroDetailFragmentArgs by navArgs()
 
     private var _binding: FragmentMovieDetailBinding? = null
     private val binding get() = _binding!!
@@ -69,8 +70,9 @@ class SuperHeroDetailFragment: Fragment() {
     }
 
     private fun getSuperHeroId(): String?{
-        return arguments?.getString(KEY_SUPERHERO_ID)
+        return superHeroArgs.superheroId
     }
+
 
     companion object{
         const val KEY_SUPERHERO_ID = "key_superhero_id"

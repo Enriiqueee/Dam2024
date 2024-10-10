@@ -20,6 +20,12 @@
         android:name="edu.iesam.dam2024.features.movies.presentation.MovieDetailFragment"
         tools:layout="@layout/fragment_movie_detail" >
 
+        <argument
+            android:name="movie_id"
+            app:argType="string"
+            app:nullable="false"
+            />
+
         <action
             android:id="@+id/action_movie_detail_fragment_to_movie_fragment"
             app:destination="@id/movie_fragment" />

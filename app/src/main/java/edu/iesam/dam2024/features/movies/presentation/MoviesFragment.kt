@@ -5,49 +5,40 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import edu.iesam.dam2024.R
 import edu.iesam.dam2024.app.domain.ErrorApp
 import edu.iesam.dam2024.databinding.FragmentMovieBinding
 import edu.iesam.dam2024.features.movies.domain.Movie
 
 
+
 class MoviesFragment : Fragment() {
 
-    // Propiedades de dependencias
     private lateinit var movieFactory: MovieFactory
     private lateinit var viewModel: MoviesViewModel
 
-    // Propiedad de enlace de vista
     private var _binding: FragmentMovieBinding? = null
-
-    // Propiedad de solo lectura para acceder a las vistas
     private val binding get() = _binding!!
 
-
-    override fun onCreateView(
-        // Inflar el layout del fragmento
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        _binding = FragmentMovieBinding.inflate(inflater, container, false)
-        // Devolver la vista del fragmento
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         movieFactory = MovieFactory(requireContext())
-        viewModel =  movieFactory.buildViewModel()
+        viewModel = movieFactory.buildViewModel()
         setupObserver()
         viewModel.viewCreated()
 
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentMovieBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     private fun setupObserver() {
@@ -70,32 +61,32 @@ class MoviesFragment : Fragment() {
         viewModel.uiState.observe(viewLifecycleOwner, movieObserver)
     }
 
+
     fun bindData(movies: List<Movie>) {
-        binding.movieId1.text = movies[0].id
-        binding.movieTitle1.text = movies[0].title
-        binding.movieTitle1.setOnClickListener {
-            findNavController().navigate(R.id.movie_detail_fragment)
 
-        }
+        binding.apply {
+            movieId1.text = movies[0].id
+            movieTitle1.text = movies[0].title
+            movieTitle1.setOnClickListener {
+                navigateToMovieDetail(movies[0].id)
+            }
+            movieId2.text = movies[1].id
+            movieTitle2.text = movies[1].title
+            movieTitle2.setOnClickListener {
+                navigateToMovieDetail(movies[1].id)
+            }
 
-        binding.movieId2.text = movies[1].id
-        binding.movieTitle2.text = movies[1].title
-        binding.movieTitle2.setOnClickListener {
-            findNavController().navigate(R.id.movie_detail_fragment)
+            movieId3.text = movies[2].id
+            movieTitle3.text = movies[2].title
+            movieTitle3.setOnClickListener {
+                navigateToMovieDetail(movies[2].id)
+            }
 
-        }
-
-        binding.movieId3.text = movies[2].id
-        binding.movieTitle3.text = movies[2].title
-        binding.movieTitle3.setOnClickListener {
-            findNavController().navigate(R.id.movie_detail_fragment)
-        }
-
-        binding.movieId4.text = movies[3].id
-        binding.movieTitle4.text = movies[3].title
-        binding.movieTitle4.setOnClickListener {
-            findNavController().navigate(R.id.movie_detail_fragment)
-
+            movieId4.text = movies[3].id
+            movieTitle4.text = movies[3].title
+            movieTitle4.setOnClickListener {
+                navigateToMovieDetail(movies[3].id)
+            }
         }
     }
 
@@ -108,9 +99,13 @@ class MoviesFragment : Fragment() {
         }
     }
 
+
     fun navigateToMovieDetail(movieId: String) {
-        //startActivity(MovieDetailActivity.getIntent(requireContext(), movieId))
-    }
+        findNavController().navigate(
+            MoviesFragmentDirections.actionMovieFragmentToMovieDetailFragment
+                (movieId)
+        )    }
+
 
     override fun onDestroyView() {
         // Limpiar el enlace de vista cuando se destruye la vista
