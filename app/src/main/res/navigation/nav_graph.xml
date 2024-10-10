@@ -26,7 +26,7 @@
     </fragment>
 
 
-
+     <!-- SuperHero -->
     <fragment
         android:id="@+id/superhero_fragment"
         android:name="edu.iesam.dam2024.features.superhero.presentation.SuperHeroesFragment"

@@ -57,7 +57,7 @@ class SuperHeroDetailFragment: Fragment() {
     }
 
     fun bindData(superhero: SuperHero) {
-
+        binding.poster.loadUrl(superhero.urlImage)
     }
 
     private fun showError(error: ErrorApp) {
