@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import edu.iesam.dam2024.app.domain.ErrorApp
 import edu.iesam.dam2024.app.extensions.loadUrl
-import edu.iesam.dam2024.databinding.FragmentMovieDetailBinding
+import edu.iesam.dam2024.databinding.FragmentSuperheroDetailBinding
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
 class SuperHeroDetailFragment: Fragment() {
@@ -21,7 +21,7 @@ class SuperHeroDetailFragment: Fragment() {
 
     private val superHeroArgs: SuperHeroDetailFragmentArgs by navArgs()
 
-    private var _binding: FragmentMovieDetailBinding? = null
+    private var _binding: FragmentSuperheroDetailBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -29,7 +29,7 @@ class SuperHeroDetailFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentSuperheroDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -43,7 +43,6 @@ class SuperHeroDetailFragment: Fragment() {
 
     private fun setupObserver() {
         viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
-            Log.d("SuperHeroDetailFragment", "uiState: $uiState")
             uiState.superHero?.let { bindData(it) }
             uiState.errorApp?.let { showError(it) }
             if (uiState.isLoading) {
@@ -57,7 +56,7 @@ class SuperHeroDetailFragment: Fragment() {
     }
 
     fun bindData(superHero: SuperHero) {
-        binding.poster.loadUrl(superHero.urlImage)
+        binding.imageUrl.loadUrl(superHero.urlImage)
     }
 
     private fun showError(error: ErrorApp) {

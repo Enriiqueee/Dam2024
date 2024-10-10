@@ -63,7 +63,6 @@ class MoviesFragment : Fragment() {
 
 
     fun bindData(movies: List<Movie>) {
-
         binding.apply {
             movieId1.text = movies[0].id
             movieTitle1.text = movies[0].title

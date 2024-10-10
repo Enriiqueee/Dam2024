@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import edu.iesam.dam2024.app.domain.ErrorApp
 import edu.iesam.dam2024.app.extensions.loadUrl
@@ -19,7 +18,7 @@ import edu.iesam.dam2024.features.superhero.presentation.SuperHeroDetailActivity
 class MovieDetailFragment : Fragment() {
 
     private lateinit var movieFactory: MovieFactory
-    private lateinit var viewModel : MovieDetailViewModel
+    private lateinit var viewModel: MovieDetailViewModel
 
     private val movieArgs: MovieDetailFragmentArgs by navArgs()
 
@@ -37,10 +36,14 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         movieFactory = MovieFactory(requireContext())
         viewModel = movieFactory.buildMovieDetailViewModel()
-        setupObserver()
-        getSuperHeroId()?.let { viewModel.viewCreated(it) }
+
+        setupObserver()  // Configura el observador para el UI state
+
+        // Obtiene el ID de la película desde los argumentos y llama a viewModel.viewCreated()
+        getMovieId()?.let { viewModel.viewCreated(it) }
     }
 
     private fun setupObserver() {
@@ -49,12 +52,14 @@ class MovieDetailFragment : Fragment() {
             uiState.errorApp?.let { showError(it) }
             if (uiState.isLoading) {
                 Log.d("@dev", "Cargando...")
-                // Mostrar progress bar
             } else {
                 Log.d("@dev", "Cargado ...")
-                // Ocultar progress bar
             }
         }
+    }
+
+    private fun getMovieId(): String? {
+        return movieArgs.movieId // Obtiene el ID de la película desde los argumentos de navegación
     }
 
     fun bindData(movie: Movie) {
@@ -70,17 +75,11 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun getSuperHeroId(): String?{
-        //return movieArgs.movieId
-        return "2"
-    }
-
-
-    companion object{
-        const val KEY_SUPERHERO_ID = "key_superhero_id"
-        fun getIntent(context: Context, superheroId: String) = Intent(context, SuperHeroDetailActivity::class.java).apply {
-            putExtra(KEY_SUPERHERO_ID, superheroId)
+    companion object {
+        const val KEY_MOVIE_ID = "key_movie_id"
+        fun getIntent(context: Context, movieId: String) = Intent(context, MovieDetailActivity::class.java).apply {
+            putExtra(KEY_MOVIE_ID, movieId)
         }
-    }
 
+    }
 }
