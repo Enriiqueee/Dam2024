@@ -48,6 +48,8 @@ class MovieDetailFragment : Fragment() {
 
     private fun setupObserver() {
         viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
+
+
             uiState.movie?.let { bindData(it) }
             uiState.errorApp?.let { showError(it) }
             if (uiState.isLoading) {

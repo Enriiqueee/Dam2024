@@ -21,7 +21,7 @@ class MovieDetailViewModel(
     fun viewCreated(movieId: String) {
         //Este hilo se crea para toda la aplicacion
         // viewModelScope es solo para ese Viewmodel
-        Log.d("@dev", "Fetching movie with ID: $movieId") // Log para verificar el ID
+
         viewModelScope.launch(Dispatchers.IO) {
             val movie = getMovieUseCase.invoke(movieId)
             _uiState.postValue(UiState(movie = movie))
