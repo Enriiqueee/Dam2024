@@ -7,13 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import edu.iesam.dam2024.R
+import androidx.navigation.fragment.navArgs
 import edu.iesam.dam2024.app.domain.ErrorApp
 import edu.iesam.dam2024.app.extensions.loadUrl
-import edu.iesam.dam2024.databinding.FragmentMovieDetailBinding
+import edu.iesam.dam2024.databinding.FragmentSuperheroDetailBinding
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
 class SuperHeroDetailFragment: Fragment() {
@@ -21,7 +19,9 @@ class SuperHeroDetailFragment: Fragment() {
     private lateinit var superheroFactory: SuperHeroesFactory
     private lateinit var viewModel : SuperHeroDetailViewModel
 
-    private var _binding: FragmentMovieDetailBinding? = null
+    private val superHeroArgs: SuperHeroDetailFragmentArgs by navArgs()
+
+    private var _binding: FragmentSuperheroDetailBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -29,7 +29,7 @@ class SuperHeroDetailFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentSuperheroDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -43,7 +43,6 @@ class SuperHeroDetailFragment: Fragment() {
 
     private fun setupObserver() {
         viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
-            Log.d("SuperHeroDetailFragment", "uiState: $uiState")
             uiState.superHero?.let { bindData(it) }
             uiState.errorApp?.let { showError(it) }
             if (uiState.isLoading) {
@@ -56,8 +55,8 @@ class SuperHeroDetailFragment: Fragment() {
         }
     }
 
-    fun bindData(superhero: SuperHero) {
-        binding.poster.loadUrl(superhero.urlImage)
+    fun bindData(superHero: SuperHero) {
+        binding.imageUrl.loadUrl(superHero.urlImage)
     }
 
     private fun showError(error: ErrorApp) {
@@ -70,8 +69,9 @@ class SuperHeroDetailFragment: Fragment() {
     }
 
     private fun getSuperHeroId(): String?{
-        return arguments?.getString(KEY_SUPERHERO_ID)
+        return superHeroArgs.superheroId
     }
+
 
     companion object{
         const val KEY_SUPERHERO_ID = "key_superhero_id"

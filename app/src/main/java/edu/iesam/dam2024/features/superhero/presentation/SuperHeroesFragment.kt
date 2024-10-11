@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import edu.iesam.dam2024.R
 import edu.iesam.dam2024.app.domain.ErrorApp
 import edu.iesam.dam2024.databinding.FragmentSuperheroBinding
-import edu.iesam.dam2024.features.movies.presentation.MoviesViewModel
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
 class SuperHeroesFragment : Fragment() {
@@ -48,6 +46,7 @@ class SuperHeroesFragment : Fragment() {
                 }
                 uiState.errorApp?.let {
                     //pinto el error
+                    showError(it)
                 }
                 if (uiState.isLoading) {
                     //muestro el cargando...
@@ -61,23 +60,27 @@ class SuperHeroesFragment : Fragment() {
         }
 
 
-        fun bindData(it: List<SuperHero>) {
-            binding.superheroId1.text = it[0].id
-            binding.superheroName1.text = it[0].name
-            binding.superheroName1.setOnClickListener {
-                findNavController().navigate(R.id.superhero_detail_fragment)
-            }
+        fun bindData(superHero: List<SuperHero>) {
 
-            binding.superheroId2.text = it[1].id
-            binding.superheroName2.text = it[1].name
-            binding.superheroName2.setOnClickListener {
-                findNavController().navigate(R.id.superhero_detail_fragment)
-            }
+            binding.apply {
+                superheroId1.text = superHero[0].id
+                superheroName1.text = superHero[0].name
+                superheroName1.setOnClickListener {
+                    navigateToSuperHeroDetail(superHero[0].id)
+                }
 
-            binding.superheroId3.text = it[2].id
-            binding.superheroName3.text = it[2].name
-            binding.superheroName3.setOnClickListener {
-                findNavController().navigate(R.id.superhero_detail_fragment)
+                superheroId2.text = superHero[1].id
+                superheroName2.text = superHero[1].name
+                superheroName2.setOnClickListener {
+                    navigateToSuperHeroDetail(superHero[1].id)
+
+                }
+
+                superheroId3.text = superHero[2].id
+                superheroName3.text = superHero[2].name
+                superheroName3.setOnClickListener {
+                    navigateToSuperHeroDetail(superHero[2].id)
+                }
             }
         }
 
@@ -90,9 +93,13 @@ class SuperHeroesFragment : Fragment() {
         }
     }
 
-    fun navigateToMovieDetail(movieId: String) {
-        //startActivity(MovieDetailActivity.getIntent(requireContext(), movieId))
-    }
+
+    fun navigateToSuperHeroDetail(superHeroId: String) {
+        findNavController().navigate(
+            SuperHeroesFragmentDirections.actionSuperheroFragmentToSuperheroDetailFragment
+                (superHeroId)
+        )    }
+
 
     override fun onDestroyView() {
         // Limpiar el enlace de vista cuando se destruye la vista

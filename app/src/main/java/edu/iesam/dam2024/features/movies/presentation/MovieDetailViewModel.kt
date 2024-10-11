@@ -1,5 +1,6 @@
 package edu.iesam.dam2024.features.movies.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +21,7 @@ class MovieDetailViewModel(
     fun viewCreated(movieId: String) {
         //Este hilo se crea para toda la aplicacion
         // viewModelScope es solo para ese Viewmodel
+
         viewModelScope.launch(Dispatchers.IO) {
             val movie = getMovieUseCase.invoke(movieId)
             _uiState.postValue(UiState(movie = movie))
