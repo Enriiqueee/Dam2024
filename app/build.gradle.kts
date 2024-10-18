@@ -57,7 +57,9 @@ dependencies {
     implementation(libs.viewmodel.scope)
     implementation(libs.nav.ui)
     implementation(libs.nav.fragment)
-    api(libs.nav.fragment.ktx)
+    implementation(libs.nav.fragment.ktx)
+    implementation(libs.retrofit)
+    implementation(libs.retrofitConverterGson)
 
 
 
