@@ -9,4 +9,13 @@ class SuperHeroApiRemoteDataSource(private val superHeroService: SuperHeroServic
         return emptyList()
     }
 
+
+    suspend fun requestSuperHeroes(superHeroId: String): SuperHero{
+        val response = superHeroService.requestSuperHero(superHeroId)
+        if (response.isSuccessful) {
+            return response.body()!!
+        }else{
+            return SuperHero("error", "error", "error")
+        }
+    }
 }
