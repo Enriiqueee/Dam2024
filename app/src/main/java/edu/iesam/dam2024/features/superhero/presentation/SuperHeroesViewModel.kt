@@ -5,32 +5,33 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.iesam.dam2024.app.domain.ErrorApp
-import edu.iesam.dam2024.features.superhero.domain.*
+import edu.iesam.dam2024.features.superhero.domain.GetSuperHeroUseCase
+import edu.iesam.dam2024.features.superhero.domain.GetSuperHeroesUseCase
+import edu.iesam.dam2024.features.superhero.domain.SuperHero
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SuperHeroesViewModel(
-    private val getSuperheroUseCase: GetSuperHeroesUseCase)
-    :ViewModel()
-{
+    private val getSuperHeroesUseCase: GetSuperHeroesUseCase
+) : ViewModel() {
 
     private val _uiState = MutableLiveData<UiState>()
-    val uiState : LiveData<UiState> = _uiState
+    val uiState: LiveData<UiState> = _uiState
 
-    fun viewCreated(){
+    fun viewCreated() {
         _uiState.value = (UiState(isLoading = true))
 
         viewModelScope.launch(Dispatchers.IO) {
-            val superHeroes = getSuperheroUseCase.invoke()
-
+            val superHeroes = getSuperHeroesUseCase.invoke()
             _uiState.postValue(UiState(superHeroes = superHeroes))
+
         }
     }
 
     data class UiState(
         val isLoading: Boolean = false,
         val errorApp: ErrorApp? = null,
-        val superHeroes : List<SuperHero>? = null
+        val superHeroes: List<SuperHero>? = null
     )
 }

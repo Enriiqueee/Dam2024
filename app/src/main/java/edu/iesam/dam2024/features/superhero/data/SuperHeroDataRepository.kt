@@ -4,33 +4,33 @@ import edu.iesam.dam2024.features.superhero.data.local.SuperHeroXmlLocalDataSour
 import edu.iesam.dam2024.features.superhero.data.remote.SuperHeroApiRemoteDataSource
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 import edu.iesam.dam2024.features.superhero.domain.SuperHeroRepository
-import edu.iesam.dam2024.features.superhero.data.remote.SuperHeroMockRemoteDataSource
 
-class SuperHeroDataRepository(private val local: SuperHeroXmlLocalDataSource,
-                              private val mock: SuperHeroMockRemoteDataSource,
-                              private val RemoteDataSource: SuperHeroApiRemoteDataSource
-):
-    SuperHeroRepository {
+class SuperHeroDataRepository(
+    private val remote: SuperHeroApiRemoteDataSource,
+    private val local: SuperHeroXmlLocalDataSource
+) : SuperHeroRepository {
 
-    override suspend fun getSuperhero(): List<SuperHero> {
-        val superheroFromLocal = local.findAll()
-        if(superheroFromLocal.isEmpty()){
-            val superheroesFromRemote = RemoteDataSource.getSuperHeroes()
-            local.saveAll(superheroesFromRemote)
-            return superheroesFromRemote
-        }else{
-            return superheroFromLocal
+
+    override suspend fun getSuperHeroes(): List<SuperHero> {
+        val superHeroesFromLocal = local.findAll()
+        if (superHeroesFromLocal.isEmpty()) {
+            val superHeroesFromRemote = remote.getSuperHeroes()
+            local.saveAll(superHeroesFromRemote)
+            return superHeroesFromRemote
+        } else {
+            return superHeroesFromLocal
         }
     }
 
-    override fun getSuperheroById(superheroId: String): SuperHero?{
-       val localSuperhero = local.findById(superheroId)
-        if(localSuperhero == null){
-            mock.getSuperHero(superheroId)?.let { superhero ->
-                local.save(superhero)
-                return superhero
+    override suspend fun getSuperHero(superHeroId: String): SuperHero? {
+        val localSuperHero = local.findById(superHeroId)
+        if (localSuperHero != null) {
+            remote.getSuperHero(superHeroId)?.let {
+                local.save(it)
+                return it
             }
         }
-        return localSuperhero
+        return null
     }
+
 }

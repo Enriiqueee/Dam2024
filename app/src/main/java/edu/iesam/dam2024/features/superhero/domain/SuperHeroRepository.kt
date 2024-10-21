@@ -1,6 +1,8 @@
 package edu.iesam.dam2024.features.superhero.domain
 
 interface SuperHeroRepository {
-    suspend fun  getSuperhero(): List<SuperHero>
-    fun getSuperheroById(superheroId: String): SuperHero?
+
+    suspend fun getSuperHeroes(): List<SuperHero>
+    suspend fun getSuperHero(superHeroId: String): SuperHero?
+
 }
