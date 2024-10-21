@@ -1,29 +1,26 @@
 package edu.iesam.dam2024.features.superhero.presentation
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import edu.iesam.dam2024.app.domain.ErrorApp
 import edu.iesam.dam2024.app.extensions.loadUrl
 import edu.iesam.dam2024.databinding.FragmentSuperheroDetailBinding
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
-class SuperHeroDetailFragment: Fragment() {
+class SuperHeroDetailFragment : Fragment() {
 
-    private lateinit var superheroFactory: SuperHeroesFactory
-    private lateinit var viewModel : SuperHeroDetailViewModel
-
-    private val superHeroArgs: SuperHeroDetailFragmentArgs by navArgs()
+    private lateinit var superHeroFactory: SuperHeroFactory
+    private lateinit var viewModel: SuperHeroDetailViewModel
 
     private var _binding: FragmentSuperheroDetailBinding? = null
     private val binding get() = _binding!!
 
+    private val superheroArgs: SuperHeroDetailFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,48 +32,42 @@ class SuperHeroDetailFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        superheroFactory = SuperHeroesFactory(requireContext())
-        viewModel = superheroFactory.buildSuperHeroDetailViewModel()
+        superHeroFactory = SuperHeroFactory(requireContext())
+        viewModel = superHeroFactory.buildSuperHeroDetailViewModel()
+        getSuperHeroId()?.let {
+            viewModel.viewCreated(it)
+        }
         setupObserver()
-        getSuperHeroId()?.let { viewModel.viewCreated(it) }
+        superheroArgs.superHeroId
     }
 
     private fun setupObserver() {
-        viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
-            uiState.superHero?.let { bindData(it) }
-            uiState.errorApp?.let { showError(it) }
+        val superHeroObserver = Observer<SuperHeroDetailViewModel.UiState> { uiState ->
+            uiState.superHero?.let {
+                bindData(it)
+            }
+            uiState.errorApp?.let {
+                //pinto el error
+            }
             if (uiState.isLoading) {
                 Log.d("@dev", "Cargando...")
-                // Mostrar progress bar
             } else {
-                Log.d("@dev", "Cargado ...")
-                // Ocultar progress bar
+                Log.d("@dev", "Cargado")
             }
         }
+        viewModel.uiState.observe(viewLifecycleOwner, superHeroObserver)
     }
 
-    fun bindData(superHero: SuperHero) {
-        binding.imageUrl.loadUrl(superHero.urlImage)
+    private fun getSuperHeroId(): String? {
+        return superheroArgs.superHeroId
     }
 
-    private fun showError(error: ErrorApp) {
-        when (error) {
-            ErrorApp.DataErrorApp -> TODO()
-            ErrorApp.InternetErrorApp -> TODO()
-            ErrorApp.ServerErrorApp -> TODO()
-            ErrorApp.UnknowErrorApp -> TODO()
-        }
-    }
-
-    private fun getSuperHeroId(): String?{
-        return superHeroArgs.superheroId
-    }
-
-
-    companion object{
-        const val KEY_SUPERHERO_ID = "key_superhero_id"
-        fun getIntent(context: Context, superheroId: String) = Intent(context, SuperHeroDetailActivity::class.java).apply {
-            putExtra(KEY_SUPERHERO_ID, superheroId)
+    private fun bindData(superhero: SuperHero) {
+        binding.apply {
+            ivSuperHeroImage.loadUrl(superhero.images.md)
+            tvSuperHeroName.text = superhero.name
+            tvSuperHeroId.text = superhero.id
+            tvSuperHeroSlug.text = superhero.slug
         }
     }
 

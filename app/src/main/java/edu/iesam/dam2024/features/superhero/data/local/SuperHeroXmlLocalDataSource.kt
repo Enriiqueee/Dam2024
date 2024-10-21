@@ -5,48 +5,96 @@ import com.google.gson.Gson
 import edu.iesam.dam2024.features.superhero.domain.SuperHero
 
 class SuperHeroXmlLocalDataSource(private val context: Context) {
+
     private val sharedPref = context.getSharedPreferences(
-        "superHero", Context.MODE_PRIVATE
+        "superheroes", Context.MODE_PRIVATE
     )
 
     private val gson = Gson()
 
-    fun save(superhero: SuperHero){
+//    fun save(superHero: SuperHero) {
+//        sharedPref.edit().apply {
+//            putString("id", superHero.id)
+//            putString("name", superHero.name)
+//            putString("slug", superHero.slug)
+//            putString("work", superHero.work.toString())
+//            putString("appearance", superHero.appearance.toString())
+//            putString("biography", superHero.biography.toString())
+//            putString("connections", superHero.connections.toString())
+//            putString("powerStats", superHero.powerStats.toString())
+//            apply()
+//        }
+//    }
+
+    fun save(superHero: SuperHero) {
         val editor = sharedPref.edit()
-        editor.putString(superhero.id, gson.toJson(superhero))
+        // Convertimos el superhéroe completo a JSON
+        val superHeroJson = gson.toJson(superHero)
+        // Guardamos el JSON bajo la clave del ID del superhéroe
+        editor.putString(superHero.id, superHeroJson)
         editor.apply()
     }
 
 
-    fun delete(){
+//    fun find(): SuperHero {
+//
+//        sharedPref.apply {
+//
+//            //Primero convertimos los JSON almacenados de vuelta a objetos
+//            val powerStatsJson = getString("powerStats", "")!!
+//            val appearanceJson = getString("appearance", "")!!
+//            val biographyJson = getString("biography", "")!!
+//            val workJson = getString("work", "")!!
+//            val connectionsJson = getString("connections", "")!!
+//            val imagesJson = getString("images", "")!!
+//
+//            //Deserializamos los datos con Gson
+//            val powerStats = gson.fromJson(powerStatsJson, PowerStats::class.java)
+//            val appearance = gson.fromJson(appearanceJson, Appearance::class.java)
+//            val biography = gson.fromJson(biographyJson, Biography::class.java)
+//            val work = gson.fromJson(workJson, Work::class.java)
+//            val connections = gson.fromJson(connectionsJson, Connections::class.java)
+//          val images = gson.fromJson(imagesJson, Image::class.java)
+//
+//            return SuperHero(
+//                id = getString("id", "")!!,
+//                name = getString("name", "")!!,
+//                slug = getString("slug", "")!!,
+//                work = work,
+//                appearance = appearance,
+//                biography = biography,
+//                connections = connections,
+//                powerStats = powerStats,
+//                images = images
+//            )
+//        }
+//    }
+
+    fun findById(superHeroId: String): SuperHero? {
+        return sharedPref.getString(superHeroId, null).let { superHero ->
+            gson.fromJson(superHero, SuperHero::class.java)
+        }
+    }
+
+    fun delete() {
         sharedPref.edit().clear().apply()
     }
 
-    fun saveAll(superheroes: List<SuperHero>){
+    fun saveAll(superHeroes: List<SuperHero>) {
         val editor = sharedPref.edit()
-        superheroes.forEach{ superhero ->
-            editor.putString(superhero.id, gson.toJson(superhero))
+        superHeroes.forEach { superHero ->
+            editor.putString(superHero.id, gson.toJson(superHero))
         }
         editor.apply()
     }
 
-    fun findById(superheroId : String): SuperHero?{
-        return sharedPref.getString(superheroId, null)?.let { superhero ->
-            gson.fromJson(superhero, SuperHero::class.java)
+    fun findAll(): List<SuperHero> {
+        val superHeroes = mutableListOf<SuperHero>()
+        val mapSuperHeroes = sharedPref.all
+        mapSuperHeroes.values.forEach { jsonSuperHero ->
+            val superHero = gson.fromJson(jsonSuperHero as String, SuperHero::class.java)
+            superHeroes.add(superHero)
         }
-    }
-
-    fun findAll(): List<SuperHero>{
-        val superheroes = ArrayList<SuperHero>()
-        val mapSuperheroes = sharedPref.all
-        mapSuperheroes.values.forEach{ jsonSuperhero ->
-            val superhero = gson.fromJson(jsonSuperhero as String, SuperHero::class.java)
-            superheroes.add(superhero)
-        }
-        return superheroes
-    }
-
-    fun deleteById(superheroId: String){
-        sharedPref.edit().remove(superheroId).apply()
+        return superHeroes
     }
 }
