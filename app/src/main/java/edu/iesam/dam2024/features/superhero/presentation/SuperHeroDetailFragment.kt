@@ -68,6 +68,10 @@ class SuperHeroDetailFragment : Fragment() {
             tvSuperHeroName.text = superhero.name
             tvSuperHeroId.text = superhero.id
             tvSuperHeroSlug.text = superhero.slug
+            tvAppearance.text = superhero.appearance.toString()
+            tvBiography.text = superhero.biography.toString()
+            tvConnections.text = superhero.connections.toString()
+            tvWork.text = superhero.work.toString()
         }
     }
 

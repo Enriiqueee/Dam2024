@@ -14,7 +14,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
 
     <!-- Nombre del Superhéroe -->
     <TextView
@@ -27,7 +28,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivSuperHeroImage" />
+        app:layout_constraintTop_toBottomOf="@id/ivSuperHeroImage"
+        android:text="Nombre"/>
 
     <!-- ID y Slug -->
     <TextView
@@ -46,7 +48,8 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSuperHeroName" />
+        app:layout_constraintTop_toBottomOf="@id/tvSuperHeroName"
+        android:text="slag"/>
 
     <!-- PowerStats -->
     <TextView
