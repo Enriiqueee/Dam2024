@@ -1,13 +1,10 @@
 package edu.iesam.dam2024.features.superhero.domain
 
+import edu.iesam.dam2024.features.superhero.data.remote.SuperHeroImageApiModel
+
 data class SuperHero(
     val id: String,
     val name: String,
-    val slug: String,
-    val powerStats: PowerStats,
-    val appearance: Appearance,
-    val biography: Biography,
-    val work: Work,
-    val connections: Connections,
-    val images: Images
+    val images: String
 )
+
