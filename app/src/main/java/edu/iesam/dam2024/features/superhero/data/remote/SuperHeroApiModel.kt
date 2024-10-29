@@ -9,6 +9,6 @@ data class SuperHeroApiModel(
 )
 
 data class SuperHeroImageApiModel(
-    @SerializedName("md") val md: String
+   val md: String
 )
 
