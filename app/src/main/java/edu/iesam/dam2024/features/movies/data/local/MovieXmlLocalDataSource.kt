@@ -4,7 +4,9 @@ import android.content.Context
 import com.google.gson.Gson
 import edu.iesam.dam2024.features.movies.domain.Movie
 import edu.iesam.dam2024.R
+import org.koin.core.annotation.Single
 
+@Single
 class MovieXmlLocalDataSource(private val context: Context) {
     private val sharedPref = context.getSharedPreferences(
         context.getString(R.string.name_file_xml), Context.MODE_PRIVATE
