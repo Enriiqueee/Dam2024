@@ -16,7 +16,7 @@ import edu.iesam.dam2024.features.movies.domain.Movie
 
 class MoviesFragment : Fragment() {
 
-    private lateinit var movieFactory: MovieFactory
+
     private lateinit var viewModel: MoviesViewModel
 
     private var _binding: FragmentMovieBinding? = null
@@ -25,8 +25,6 @@ class MoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        movieFactory = MovieFactory(requireContext())
-        viewModel = movieFactory.buildViewModel()
         setupObserver()
         viewModel.viewCreated()
 

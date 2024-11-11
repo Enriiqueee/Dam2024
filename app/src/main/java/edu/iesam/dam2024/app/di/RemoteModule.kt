@@ -12,15 +12,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 @ComponentScan
 class RemoteModule {
 
-    val url = "https://api.themoviedb.org/3/"
+    private val url = "https://"
 
     @Single
-    fun provideLogginIntercepto() = HttpLoggingInterceptor().apply {
+    fun provideLogginInterceptor() = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
     @Single
-    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient{
+    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         val okHttpClient = OkHttpClient
             .Builder()
             .addInterceptor(loggingInterceptor)
@@ -29,9 +29,10 @@ class RemoteModule {
     }
 
     @Single
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit{
-        val retrofit = Retrofit.Builder()
-            .baseUrl("url")
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        val retrofit = Retrofit
+            .Builder()
+            .baseUrl(url)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
